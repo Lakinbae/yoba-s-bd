@@ -1,1 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KERNEL PANIC // SYSTEM ERROR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@400;600;900&display=swap');
+        .font-code { font-family: 'Courier Prime', monospace; }
+        .font-main { font-family: 'Poppins', sans-serif; }
+        
+        .panic-bg {
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.3) 0%, rgba(0, 0, 0, 0.98) 100%);
+        }
 
+        .matrix-bg {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(0, 0, 0, 0.99) 100%);
+        }
+
+        @keyframes intense-shake {
+            0% { transform: translate(3px, 3px) rotate(0deg); }
+            15% { transform: translate(-5px, -2px) rotate(-1.5deg); }
+            30% { transform: translate(4px, 2px) rotate(1.5deg); }
+            45% { transform: translate(-3px, 4px) rotate(-1deg); }
+            60% { transform: translate(5px, -3px) rotate(1deg); }
+            75% { transform: translate(-2px, -4px) rotate(-0.5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        .shake-hard { animation: intense-shake 0.18s infinite; }
+
+        @keyframes explode-pop {
+            0% { transform: scale(0.2); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .boom-reveal { animation: explode-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    </style>
+</head>
+<body class="bg-black text-white font-main min-h-screen flex items-center justify-center p-4 select-none overflow-x-hidden">
+
+    <!-- ================= STAGE 1: FBI / INTERPOL CYBERCRIME WARRANT ================= -->
+    <div id="stage-1" class="prank-stage fixed inset-0 z-50 panic-bg flex flex-col items-center justify-center p-6 text-center shake-hard border-8 border-red-600">
+        <div class="text-7xl mb-2 animate-pulse">🚨</div>
+        <span class="bg-red-600 text-white px-4 py-1 rounded-full text-xs font-extrabold tracking-widest uppercase font-code mb-2">FEDERAL INTERPOL WARRANT</span>
+        <h1 class="text-2xl md:text-4xl font-extrabold text-red-500 font-code tracking-wider mb-2">IP ADDRESS TARGETED FOR ARREST</h1>
+        <p class="text-zinc-300 text-xs font-code max-w-sm mb-6">
+            Cyber crime unit has tracked illegal downloads from this device. Federal agents are currently dispatched to your exact GPS coordinates.
+        </p>
+        <button onclick="nextStage(2)" class="bg-red-600 hover:bg-red-500 text-white font-black px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-code shadow-[0_0_30px_rgba(239,68,68,1)]">
+            [ SURRENDER DEVICE NOW ]
+        </button>
+    </div>
+
+    <!-- ================= STAGE 2: "WHAT'S TODAY?" QUESTION ================= -->
+    <div id="stage-2" class="prank-stage hidden fixed inset-0 z-50 panic-bg flex flex-col items-center justify-center p-6 text-center border-8 border-amber-600">
+        <div class="text-6xl mb-3 animate-bounce">🤔</div>
+        <span class="bg-amber-600 text-black px-4 py-1 rounded-full text-xs font-extrabold tracking-widest uppercase font-code mb-2">SYSTEM INTERRUPT</span>
+        <h1 class="text-xl md:text-2xl font-bold text-amber-400 font-code mb-6">Before we proceed with the arrest... Quick question: Do you even know what today is?</h1>
+        <div class="grid grid-cols-1 gap-3 max-w-xs w-full">
+            <button onclick="nextStage(3)" class="bg-zinc-900 hover:bg-amber-500 hover:text-black border border-amber-500/40 text-amber-400 font-bold py-3 px-4 rounded-xl text-xs transition-all font-code">
+                It's just a normal day 💀
+            </button>
+            <button onclick="nextStage(3)" class="bg-amber-500 hover:bg-amber-400 text-black font-extrabold py-3 px-4 rounded-xl text-xs transition-all font-code shadow-lg">
+                Wait... Is it my birthday?! 🎉
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 3: TELEBIRR ACCOUNT DRAINED PRANK ================= -->
+    <div id="stage-3" class="prank-stage hidden fixed inset-0 z-50 panic-bg flex flex-col items-center justify-center p-6 text-center shake-hard border-8 border-rose-700">
+        <div class="text-7xl mb-2">💸</div>
+        <span class="bg-rose-600 text-white px-4 py-1 rounded-full text-xs font-extrabold tracking-widest uppercase font-code mb-2">FINANCIAL EMERGENCY</span>
+        <h1 class="text-2xl md:text-4xl font-extrabold text-rose-500 font-code tracking-wider mb-2">TELEBIRR ACCOUNT DRAINED</h1>
+        <p class="text-zinc-300 text-xs font-code max-w-sm mb-6">
+            All bank accounts and mobile wallets linked to your phone number have experienced an unauthorized zero-balance sweep.
+        </p>
+        <div class="bg-zinc-950 border border-rose-800 p-3 rounded-xl max-w-xs w-full mb-6 font-code text-left text-[11px] text-rose-400 space-y-1">
+            <p>> Previous Balance: 12,450.00 ETB</p>
+            <p>> Current Balance: <span class="text-red-500 font-bold">0.00 ETB</span></p>
+        </div>
+        <button onclick="triggerBlackout(4)" class="bg-rose-600 hover:bg-rose-500 text-white font-black px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-code shadow-[0_0_30px_rgba(225,29,72,1)]">
+            [ FREEZE BANK CARDS ]
+        </button>
+    </div>
+
+    <!-- ================= STAGE 4: BLACK SCREEN BREAK 1 ================= -->
+    <div id="stage-4" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="forceAdvance(5)">
+        <p class="text-zinc-600 font-code text-xs tracking-widest animate-pulse">[ SYSTEM SHUTDOWN... TAP ANYWHERE TO WAKE ]</p>
+    </div>
+
+    <!-- ================= STAGE 5: FRONT CAMERA LIVE LEAK PRANK ================= -->
+    <div id="stage-5" class="prank-stage hidden fixed inset-0 z-50 panic-bg flex flex-col items-center justify-center p-6 text-center shake-hard border-8 border-red-800">
+        <div class="text-7xl mb-2 animate-bounce">📸</div>
+        <span class="bg-red-700 text-white px-4 py-1 rounded-full text-xs font-extrabold tracking-widest uppercase font-code mb-2">SECURITY BREACH // LIVE STREAM</span>
+        <h1 class="text-2xl md:text-4xl font-extrabold text-red-500 font-code tracking-wider mb-2">CAMERA STREAM BROADCASTING</h1>
+        <p class="text-zinc-300 text-xs font-code max-w-sm mb-6">
+            Your front camera is active. Every facial expression and room detail is currently live-streaming on a dark-web public server.
+        </p>
+        <button onclick="triggerBlackout(6)" class="bg-red-700 hover:bg-red-600 text-white font-black px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-code shadow-[0_0_30px_rgba(185,28,28,1)]">
+            [ BLOCK CAMERA ACCESS ]
+        </button>
+    </div>
+
+    <!-- ================= STAGE 6: BLACK SCREEN BREAK 2 ================= -->
+    <div id="stage-6" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="forceAdvance(7)">
+        <p class="text-zinc-600 font-code text-xs tracking-widest animate-pulse">[ SCREEN OFF... TAP TO TURN ON ]</p>
+    </div>
+
+    <!-- ================= STAGE 7: SIKEEE! ================= -->
+    <div id="stage-7" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center">
+        <div class="max-w-xs w-full bg-zinc-900 border border-amber-500/40 rounded-3xl p-8 shadow-2xl boom-reveal">
+            <h1 class="text-4xl font-black text-amber-400 mb-4 tracking-wider">SIKEEE! 😝</h1>
+            <p class="text-xs text-zinc-400 mb-6">Bro really thought his life was falling apart.</p>
+            <button onclick="nextStage(8)" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-3 rounded-xl w-full text-xs uppercase tracking-wider shadow-lg">
+                Continue ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 8: UNIVERSITY CREDITS WIPED PRANK ================= -->
+    <div id="stage-8" class="prank-stage hidden fixed inset-0 z-50 panic-bg flex flex-col items-center justify-center p-6 text-center shake-hard border-8 border-orange-600">
+        <div class="text-7xl mb-2">🔥</div>
+        <span class="bg-orange-600 text-white px-4 py-1 rounded-full text-xs font-extrabold tracking-widest uppercase font-code mb-2">UNIVERSITY DATABASE WIPE</span>
+        <h1 class="text-2xl md:text-4xl font-extrabold text-orange-500 font-code tracking-wider mb-2">ALL SEMESTER CREDITS ERASED</h1>
+        <p class="text-zinc-300 text-xs font-code max-w-sm mb-6">
+            Mainframe server error: Your university portal profile has been wiped clean. System records indicate zero courses completed.
+        </p>
+        <button onclick="triggerBlackout(9)" class="bg-orange-600 hover:bg-orange-500 text-white font-black px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-code shadow-[0_0_30px_rgba(234,88,12,1)]">
+            [ RESTORE BACKUP ]
+        </button>
+    </div>
+
+    <!-- ================= STAGE 9: BLACK SCREEN BREAK 3 ================= -->
+    <div id="stage-9" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="forceAdvance(10)">
+        <p class="text-zinc-600 font-code text-xs tracking-widest animate-pulse">[ SYSTEM REBOOTING... TAP TO BYPASS ]</p>
+    </div>
+
+    <!-- ================= STAGE 10: WEIRD PIC (EYOB.JPG) WITH "HAPPS" ================= -->
+    <div id="stage-10" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center">
+        <div class="max-w-xs w-full bg-zinc-900 border border-amber-500/50 rounded-3xl p-6 shadow-2xl boom-reveal">
+            <span class="bg-amber-500 text-black px-3 py-1 rounded-full text-[10px] font-extrabold tracking-widest uppercase mb-3 inline-block">SYSTEM ERROR LOG // ARCHIVE FOUND</span>
+            <div class="w-48 h-48 mx-auto bg-zinc-950 rounded-2xl overflow-hidden border-2 border-amber-500/40 mb-4 relative">
+                <img src="images/eyob1.jpg" alt="Eyob" class="w-full h-full object-cover filter contrast-125" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop';">
+            </div>
+            <h1 class="text-3xl font-black text-amber-400 mb-2 tracking-wide">HAPPS EYOBAAA! 💀</h1>
+            <p class="text-[11px] text-zinc-400 mb-4">Found this rare artifact deep inside the system database.</p>
+            <button onclick="triggerBlackout(12)" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-3 rounded-xl w-full text-xs uppercase tracking-wider">
+                Next System Prompt ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 11: (Skipped / Merged for clean flow) ================= -->
+
+    <!-- ================= STAGE 12: SECOND WEIRD PIC WITH OTHER PHOTO ================= -->
+    <div id="stage-12" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center">
+        <div class="max-w-xs w-full bg-zinc-900 border border-amber-500/50 rounded-3xl p-6 shadow-2xl boom-reveal">
+            <span class="bg-rose-500 text-white px-3 py-1 rounded-full text-[10px] font-extrabold tracking-widest uppercase mb-3 inline-block">CRITICAL EXPOSED FILE</span>
+            <div class="w-48 h-48 mx-auto bg-zinc-950 rounded-2xl overflow-hidden border-2 border-rose-500/40 mb-4 relative">
+                <img src="images/eyob2.jpg" alt="Eyob Rare" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop';">
+            </div>
+            <h1 class="text-xl font-bold text-white mb-2">Unreleased Footage 📸</h1>
+            <p class="text-[11px] text-zinc-400 mb-4">The dark web didn't know what to do with this one.</p>
+            <button onclick="triggerLongBlackout()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-6 py-3 rounded-xl w-full text-xs uppercase tracking-wider">
+                Final Boot Sequence ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 13: LONG BLACK SCREEN ================= -->
+    <div id="stage-13" class="prank-stage hidden fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="forceAdvance(14)">
+        <p class="text-zinc-700 font-code text-xs tracking-widest animate-pulse">[ SYSTEM REBOOTING DEEP KERNEL... TAP TO ACCELERATE ]</p>
+    </div>
+
+    <!-- ================= STAGE 14: CUTE CAKE & HEARTFELT LETTER ================= -->
+    <div id="stage-14" class="prank-stage hidden fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center p-4 overflow-y-auto">
+        <div class="max-w-md w-full bg-slate-900/90 border border-slate-800 backdrop-blur-xl rounded-3xl p-6 shadow-2xl boom-reveal my-auto text-center">
+            
+            <span class="text-xs font-bold tracking-widest text-amber-400 uppercase bg-amber-500/10 px-3 py-1 rounded-full inline-block mb-3">
+                Make a Wish 🎂✨
+            </span>
+            <h1 class="text-2xl font-extrabold text-white mb-4">Happy Birthday Brother!</h1>
+
+            <div class="bg-slate-950/60 border border-slate-800/60 rounded-2xl p-4 mb-4">
+                <div id="cake-flame" class="text-3xl animate-bounce mb-1">🔥</div>
+                <div class="text-5xl">🎂</div>
+                <p id="cake-msg" class="text-xs text-slate-400 mt-2 font-medium">Tap to blow out your candles!</p>
+                <button onclick="blowCake()" class="mt-3 bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 font-semibold px-4 py-1.5 rounded-xl text-xs transition-all active:scale-95">
+                    Blow Candles 💨
+                </button>
+            </div>
+
+            <!-- BETTER HEARTFELT LETTER -->
+            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-3 leading-relaxed mb-4 text-left max-h-40 overflow-y-auto">
+                <p class="font-bold text-amber-400 text-sm">Eyobaye</p>
+                <p>
+                    After surviving every single heart-attack prank, system crash, and fake arrest warrant imaginable, you've officially earned the title of the coolest software engineering student around. Seriously, happy birthday, bro!
+                </p>
+                <p>
+                    Having you around makes every random hangout infinitely better. You bring unmatched energy, elite humor, and genuine vibes to everything you do.
+                </p>
+                <p>
+                    May this new year bring you massive success in life, zero failurr, endless wins, and all the happiness you deserve. You're destined for huge things!
+                </p>
+                <p class="font-semibold text-amber-400 pt-2 border-t border-slate-800">
+                    Have an absolute banger of a day today. Cheers to another incredible year! 🥂✨
+                </p>
+            </div>
+
+            <button onclick="nextStage(15)" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-lg shadow-amber-500/20 active:scale-95">
+                Go to Memories & Movie Posters ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 15: MOVIE POSTERS & HANGOUT PICTURES ================= -->
+    <div id="stage-15" class="prank-stage hidden fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center p-4 overflow-y-auto">
+        <div class="max-w-md w-full bg-slate-900/90 border border-slate-800 backdrop-blur-xl rounded-3xl p-6 shadow-2xl boom-reveal my-auto text-center">
+            
+            <span class="text-xs font-bold tracking-widest text-amber-400 uppercase bg-amber-500/10 px-3 py-1 rounded-full inline-block mb-3">
+                The Vault 📸🍿
+            </span>
+            <h1 class="text-xl font-bold text-white mb-4">Core Memories & Cinema Nights</h1>
+
+            <div class="mb-3 text-left">
+                <h3 class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">📸 Hangouts & Real Life</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="h-28 bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <img src="images/eyob2.jpg" alt="Hangout 1" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop';">
+                    </div>
+                    <div class="h-28 bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                        <img src="images/eyob.jpg" alt="Hangout 2" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop';">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4 text-left">
+                <h3 class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">🍿 Movie Posters & Marathons</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="h-28 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                        <img src="images/the crow.jpg" alt="Movie 1" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=300&auto=format&fit=crop';">
+                        <span class="absolute bottom-1 bg-slate-950/80 text-[9px] px-2 py-0.5 rounded text-amber-300 font-semibold">Cinema Night</span>
+                    </div>
+                    <div class="h-28 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 relative flex items-center justify-center">
+                        <img src="images/crew.jpg" alt="Movie 2" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=300&auto=format&fit=crop';">
+                        <span class="absolute bottom-1 bg-slate-950/80 text-[9px] px-2 py-0.5 rounded text-amber-300 font-semibold">Late Marathon</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="nextStage(16)" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-lg shadow-amber-500/20 active:scale-95">
+                Final Hazard Security Check ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 16: FINAL DIFFERENT HAZARD PRANK (MATRIX OVERRIDE) ================= -->
+    <div id="stage-16" class="prank-stage hidden fixed inset-0 z-50 matrix-bg flex flex-col items-center justify-center p-6 text-center border-8 border-emerald-500">
+        <div class="text-7xl mb-2 animate-bounce">⚡</div>
+        <span class="bg-emerald-600 text-black px-4 py-1 rounded-full text-xs font-extrabold tracking-widest uppercase font-code mb-2">YOUR'RE THE BEST</span>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-emerald-400 font-code tracking-wider mb-2">YENE GABAX</h1>
+        <p class="text-zinc-300 text-xs font-code max-w-sm mb-6">
+            Tmechignalesh manye😉😂
+        </p>
+        <div class="bg-zinc-950 border border-emerald-800 p-3 rounded-xl max-w-xs w-full mb-6 font-code text-left text-[11px] text-emerald-400 space-y-1">
+            <p>> Virus: Quantum.Payload.X</p>
+            <p>> Status: <span class="text-emerald-300 animate-pulse">ENCRYPTING MEMORIES...</span></p>
+        </div>
+        <button onclick="restartExperience()" class="bg-emerald-500 hover:bg-emerald-400 text-black font-black px-8 py-4 rounded-xl text-xs uppercase tracking-widest font-code shadow-[0_0_40px_rgba(16,185,129,0.8)]">
+            [ EMERGENCY OVERRIDE & REPLAY ]
+        </button>
+    </div>
+
+    <script>
+        let audioCtx = null;
+        let alarmInterval = null;
+        let activeTimer = null;
+
+        function playScaryBeep(type) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                clearInterval(alarmInterval);
+
+                let freq1 = 800, freq2 = 400, intervalTime = 400;
+                if (type === 3) { freq1 = 300; freq2 = 150; intervalTime = 600; }
+                else if (type === 5) { freq1 = 1200; freq2 = 900; intervalTime = 250; }
+                else if (type === 8) { freq1 = 440; freq2 = 220; intervalTime = 500; }
+                else if (type === 16) { freq1 = 1500; freq2 = 300; intervalTime = 150; }
+
+                alarmInterval = setInterval(() => {
+                    if (!audioCtx) return;
+                    let osc = audioCtx.createOscillator();
+                    let gain = audioCtx.createGain();
+                    osc.type = type === 16 ? 'sawtooth' : 'square';
+                    osc.frequency.setValueAtTime(freq1, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(freq2, audioCtx.currentTime + (intervalTime / 2000));
+                    
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (intervalTime / 1000));
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + (intervalTime / 1000));
+                }, intervalTime);
+            } catch (e) {
+                console.log("Audio context prevented by browser policy.");
+            }
+        }
+
+        function stopAudio() {
+            clearInterval(alarmInterval);
+            if (audioCtx) {
+                audioCtx.close();
+                audioCtx = null;
+            }
+        }
+
+        function playBirthdayMelody() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const notes = [
+                    {f: 264, d: 400}, {f: 264, d: 200}, {f: 297, d: 600}, {f: 264, d: 600}, {f: 352, d: 600}, {f: 330, d: 1200},
+                    {f: 264, d: 400}, {f: 264, d: 200}, {f: 297, d: 600}, {f: 264, d: 600}, {f: 396, d: 600}, {f: 352, d: 1200}
+                ];
+
+                let time = audioCtx.currentTime;
+                notes.forEach(note => {
+                    let osc = audioCtx.createOscillator();
+                    let gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(note.f, time);
+                    gain.gain.setValueAtTime(0.2, time);
+                    gain.gain.exponentialRampToValueAtTime(0.01, time + (note.d / 1000) - 0.05);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(time);
+                    osc.stop(time + (note.d / 1000));
+                    time += (note.d / 1000) + 0.05;
+                });
+            } catch(e) {}
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            playScaryBeep(1);
+        });
+
+        function nextStage(stageNum) {
+            if (activeTimer) clearTimeout(activeTimer);
+            playScaryBeep(stageNum);
+            document.querySelectorAll('.prank-stage').forEach(el => el.classList.add('hidden'));
+            document.getElementById('stage-' + stageNum).classList.remove('hidden');
+        }
+
+        function forceAdvance(nextTargetStage) {
+            if (activeTimer) clearTimeout(activeTimer);
+            document.querySelectorAll('.prank-stage').forEach(el => el.classList.add('hidden'));
+            if (nextTargetStage === 14) {
+                document.getElementById('stage-14').classList.remove('hidden');
+                playBirthdayMelody();
+            } else {
+                nextStage(nextTargetStage);
+            }
+        }
+
+        function triggerBlackout(nextTargetStage) {
+            stopAudio();
+            document.querySelectorAll('.prank-stage').forEach(el => el.classList.add('hidden'));
+            let blackoutId = 'stage-4';
+            if (nextTargetStage === 6) blackoutId = 'stage-6';
+            else if (nextTargetStage === 9) blackoutId = 'stage-9';
+            else if (nextTargetStage === 12) blackoutId = 'stage-12';
+
+            document.getElementById(blackoutId).classList.remove('hidden');
+
+            // Auto-advance after 3 seconds, but also allow clicking the dark screen to wake instantly
+            if (activeTimer) clearTimeout(activeTimer);
+            activeTimer = setTimeout(() => {
+                document.getElementById(blackoutId).classList.add('hidden');
+                nextStage(nextTargetStage);
+            }, 3000);
+        }
+
+        function triggerLongBlackout() {
+            stopAudio();
+            document.querySelectorAll('.prank-stage').forEach(el => el.classList.add('hidden'));
+            document.getElementById('stage-13').classList.remove('hidden');
+
+            if (activeTimer) clearTimeout(activeTimer);
+            activeTimer = setTimeout(() => {
+                document.getElementById('stage-13').classList.add('hidden');
+                document.getElementById('stage-14').classList.remove('hidden');
+                playBirthdayMelody();
+            }, 4000);
+        }
+
+        function blowCake() {
+            document.getElementById('cake-flame').innerText = '💨';
+            document.getElementById('cake-msg').innerText = 'Candles blown out! Wish locked in. 🕯️✨';
+        }
+
+        function restartExperience() {
+            stopAudio();
+            if (activeTimer) clearTimeout(activeTimer);
+            document.querySelectorAll('.prank-stage').forEach(el => el.classList.add('hidden'));
+            document.getElementById('stage-1').classList.remove('hidden');
+            playScaryBeep(1);
+        }
+    </script>
+</body>
+</html>
